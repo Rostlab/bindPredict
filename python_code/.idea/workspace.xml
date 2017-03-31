@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00917c4c-9a11-4efd-988f-8049bc3e88b0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../minimal_model_enzyme_negatives.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../minimal_model_enzyme_positives.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../minimal_model_pdidb_negatives.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../minimal_model_pdidb_positives.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evcfunc_nn.ipynb" afterPath="$PROJECT_DIR$/evcfunc_nn.ipynb" />
     </list>
@@ -318,6 +314,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/data/minimal_model_enzyme_positives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
