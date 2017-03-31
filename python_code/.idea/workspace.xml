@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00917c4c-9a11-4efd-988f-8049bc3e88b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evcfunc_nn.ipynb" afterPath="$PROJECT_DIR$/evcfunc_nn.ipynb" />
-    </list>
+    <list default="true" id="00917c4c-9a11-4efd-988f-8049bc3e88b0" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
