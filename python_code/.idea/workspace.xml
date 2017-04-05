@@ -18,15 +18,15 @@
         <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="9" />
+              <selected id="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="more_minimal_model_pdidb_positives.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/more_minimal_model_pdidb_positives.txt">
+      <file leaf-file-name="snap_model_sw_pdidb_positives.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/snap_model_sw_pdidb_positives.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="-27936">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -437,10 +437,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/minimal_model_sw_wd_pdidb_positives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27950">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/snap_model_sw_pdidb_positives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27936">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="6" />
+          <selected id="10" />
         </state>
       </provider>
     </entry>
