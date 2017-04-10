@@ -3,24 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="00917c4c-9a11-4efd-988f-8049bc3e88b0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_enzyme.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_enzyme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_pdidb.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_pdidb.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_sw.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_sw.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_sw_enzyme.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_sw_enzyme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_sw_pdidb.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_sw_pdidb.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_sw_wd.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_sw_wd.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_sw_wd_enzyme.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_sw_wd_enzyme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_sw_wd_pdidb.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_sw_wd_pdidb.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_wd.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_wd.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_wd_enzyme.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_wd_enzyme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_minimal_model_wd_pdidb.txt" afterPath="$PROJECT_DIR$/data/performance_minimal_model_wd_pdidb.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_more_minimal_model_sw.txt" afterPath="$PROJECT_DIR$/data/performance_more_minimal_model_sw.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_more_minimal_model_sw_enzyme.txt" afterPath="$PROJECT_DIR$/data/performance_more_minimal_model_sw_enzyme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_more_minimal_model_sw_pdidb.txt" afterPath="$PROJECT_DIR$/data/performance_more_minimal_model_sw_pdidb.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_snap_model_sw.txt" afterPath="$PROJECT_DIR$/data/performance_snap_model_sw.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_snap_model_sw_enzyme.txt" afterPath="$PROJECT_DIR$/data/performance_snap_model_sw_enzyme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance_snap_model_sw_pdidb.txt" afterPath="$PROJECT_DIR$/data/performance_snap_model_sw_pdidb.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance/performance_mm2.txt" afterPath="$PROJECT_DIR$/data/performance/performance_mm2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance/performance_mm2_5.txt" afterPath="$PROJECT_DIR$/data/performance/performance_mm2_5.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance/performance_mm3.txt" afterPath="$PROJECT_DIR$/data/performance/performance_mm3.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance/performance_mm_5.txt" afterPath="$PROJECT_DIR$/data/performance/performance_mm_5.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/performance/performance_snap_model_5.txt" afterPath="$PROJECT_DIR$/data/performance/performance_snap_model_5.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evcfunc_nn.ipynb" afterPath="$PROJECT_DIR$/evcfunc_nn.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,17 +24,7 @@
         <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="snap_model_sw_enzyme_negatives.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/snap_model_sw_enzyme_negatives.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <selected id="9" />
             </state>
           </provider>
         </entry>
@@ -68,6 +45,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/data/minimal_model_sw_enzyme_negatives.txt" />
+        <option value="$PROJECT_DIR$/test_models.ipynb" />
         <option value="$PROJECT_DIR$/evcfunc_nn.ipynb" />
       </list>
     </option>
@@ -103,6 +81,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -129,9 +108,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python_code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python_code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="combined_model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -318,7 +314,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20682302" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1663113" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.14688128" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -350,6 +346,21 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="-1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/snap_model_sw_enzyme_negatives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -513,10 +524,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test_models.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cum_3_enzyme_positives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cum_3_pdidb_negatives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cum_3_pdidb_positives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cum_3_enzyme_negatives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cum_5_pdidb_negatives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cum_5_pdidb_positives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/single_model/cluster_enzyme_negatives.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="10" />
+          <selected id="9" />
         </state>
       </provider>
     </entry>
