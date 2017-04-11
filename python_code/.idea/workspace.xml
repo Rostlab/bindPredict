@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00917c4c-9a11-4efd-988f-8049bc3e88b0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/performance/performance_mm3_avg.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/performance/performance_mm3_cum_5.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evcfunc_nn.ipynb" afterPath="$PROJECT_DIR$/evcfunc_nn.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_overtraining.ipynb" afterPath="$PROJECT_DIR$/test_overtraining.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,7 +14,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="evcfunc_nn.ipynb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="evcfunc_nn.ipynb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
@@ -26,11 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_overtraining.ipynb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test_overtraining.ipynb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_overtraining.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="7" />
+              <selected id="9" />
             </state>
           </provider>
         </entry>
@@ -514,14 +511,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_overtraining.ipynb">
+    <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="7" />
+          <selected id="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evcfunc_nn.ipynb">
+    <entry file="file://$PROJECT_DIR$/test_overtraining.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="9" />
