@@ -6,7 +6,8 @@ pp2 = ProfParser(file2, method='profphd')
 pp = ProfParser(file, method='reprof')
 
 print(pp.seq)
-print(pp.p_rel_solv)
+print(len(pp.seq))
+print(len(pp.p_rel_solv))
 
 print(pp2.seq)
 print(pp2.p_rel_solv)
