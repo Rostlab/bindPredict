@@ -13,26 +13,50 @@ def classifier_estimation(classifier, x_test, y_test):
 
 
 def import_data(ids, cols_to_remove):
-    positives = []
-    negatives = []
+    data = []
+    labels = []
+    lengths = []
 
     for id in ids:
-        print(id)
+        length_pos = 0
+        length_neg = 0
+
         with open("data/single_files/" + id + ".pos") as p:
             for row in csv.reader(p, delimiter="\t"):
-                # row = [i for j, i in enumerate(row) if j not in cols_to_remove]
+                row = [i for j, i in enumerate(row) if j not in cols_to_remove]
                 row = [float(i) for i in row]
-                positives.append(row)
+                data.append(row)
+                length_pos = length_pos + 1
         with open("data/single_files/" + id + ".neg") as n:
             for row in csv.reader(n, delimiter="\t"):
-                # row = [i for j, i in enumerate(row) if j not in cols_to_remove]
+                row = [i for j, i in enumerate(row) if j not in cols_to_remove]
                 row = [float(i) for i in row]
-                negatives.append(row)
+                data.append(row)
+                length_neg = length_neg + 1
 
-    data = positives + negatives
-    labels = [1] * len(positives) + [0] * len(negatives)
+        tmp_labels = [1]*length_pos + [0]*length_neg
+        labels.append(tmp_labels)
+        length = length_pos+length_neg
+        lengths.append(length)
 
-    return data, labels
+    return data, labels, lengths
+
+
+def get_average_model(data, ranges):
+    new_data = []
+
+    for i in range(0, len(data)):
+        row = data[i]
+        new_row = []
+        for j in range(0, len(ranges)):
+            curr_range = ranges[j]
+            first = curr_range[0]
+            last = curr_range[1] + 1
+            avg = sum(row[first:last]) / len(row[first:last])
+            new_row.append(avg)
+        new_data.append(new_row)
+
+    return new_data
 
 
 def calculate_performance(classifier, x_test, y_test):
