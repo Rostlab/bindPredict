@@ -4,6 +4,8 @@ from sklearn.neural_network import MLPClassifier
 from sklearn import metrics
 import numpy as np
 from math import sqrt
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
@@ -13,7 +15,7 @@ def run_model(model, split1_ids, split2_ids, split3_ids, split4_ids, split5_ids,
     x_train, y_train, train_length, x_cross, y_cross, cross_length = import_model(split1_ids, split2_ids, split3_ids,
                                                                                   split4_ids, split5_ids,
                                                                                   ids_more_data, cols_to_remove,
-                                                                                  ranges, keywords=words[0:1])
+                                                                                  ranges, keywords=words[0:2])
     classifier = train_model(x_train, y_train)
     mean_line, sd_line = model_accuracy(classifier, x_cross, y_cross, cross_length)
     prec_cov = prec_cov_curve(classifier, x_cross, y_cross, cross_length)
@@ -27,14 +29,34 @@ def run_model(model, split1_ids, split2_ids, split3_ids, split4_ids, split5_ids,
         f.write(sd_line)
     with open("data/prec_cov/prec_cov_" + model + ".txt", "w") as f:
         for x in prec_cov[0]:
-            f.write(x + "\t")
+            f.write(str(x) + "\t")
         f.write("\n")
         for x in prec_cov[1]:
-            f.write(x + "\t")
+            f.write(str(x) + "\t")
         f.write("\n")
 
     if words[2] == "yes":
-        test_ovetraining(model,x_train, y_train, x_cross, y_cross)
+        test_ovetraining(model, x_train, y_train, x_cross, y_cross)
+
+
+def run_model_best(model, train_ids, split5_ids, cols_to_remove, ranges, words):
+
+    x_train, y_train, train_length, x_cross, y_cross, cross_length = import_model_no_splits(train_ids,
+                                                                                            split5_ids,
+                                                                                            cols_to_remove,
+                                                                                            ranges,
+                                                                                            keywords=words[0:2])
+    classifier = train_model(x_train, y_train)
+    mean_line, sd_line = model_accuracy(classifier, x_cross, y_cross, cross_length)
+    prec_cov = prec_cov_curve(classifier, x_cross, y_cross, cross_length)
+
+    mean_line = model + mean_line
+    sd_line = model + sd_line
+
+    with open("data/performance/performance_mean_top.txt", "a") as f:
+        f.write(mean_line)
+    with open("data/performance/performance_sd_top.txt", "a") as f:
+        f.write(sd_line)
 
 
 def import_model(split1_ids, split2_ids, split3_ids, split4_ids, split5_ids, ids_more_data, cols_to_remove, ranges,
@@ -73,6 +95,18 @@ def import_model(split1_ids, split2_ids, split3_ids, split4_ids, split5_ids, ids
     return x_train, y_train, train_length, x_cross, y_cross, cross_length
 
 
+def import_model_no_splits(train_ids, cross_ids, cols_to_remove, ranges, r):
+
+    x_train, y_train, train_length = func.import_data(train_ids, cols_to_remove)
+    x_cross, y_cross, cross_length = func.import_data(cross_ids, cols_to_remove)
+
+    if r == "yes":
+        x_train = func.get_average_model(x_train, ranges)
+        x_cross = func.get_average_model(x_cross, ranges)
+
+    return x_train, y_train, train_length, x_cross, y_cross, cross_length
+
+
 def train_model(x_train, y_train):
     sm = SMOTE(random_state=42)
     x_train, y_train = sm.fit_sample(x_train, y_train)
@@ -90,8 +124,12 @@ def model_accuracy(classifier, x_cross, y_cross, cross_length):
     i = 0
     performances = []
     for l in cross_length:
-        pp = prediction[i:l]
-        y_pp = y_cross[i:l]
+        end = i+l
+        pp = prediction[i:end]
+        y_pp = y_cross[i:end]
+
+        # print(pp)
+        # print(y_pp)
 
         prec = metrics.precision_score(y_pp, pp, average=None)
         sensi = metrics.recall_score(y_pp, pp, average=None)
@@ -135,8 +173,14 @@ def prec_cov_curve(classifier, x_cross, y_cross, cross_length):
         tmp_prec = []
         tmp_cov = []
         for l in cross_length:
-            pp = proba[i:l]
-            y_pp = y_cross[i:l]
+            end = i + l
+            pp = proba[i:end]
+            y_pp = y_cross[i:end]
+
+            # print(i)
+            # print(end)
+            # print(pp)
+            # print(y_pp)
 
             prediction = []
             for el in pp:
@@ -144,12 +188,15 @@ def prec_cov_curve(classifier, x_cross, y_cross, cross_length):
                     prediction.append(1)
                 else:
                     prediction.append(0)
-            prec = metrics.precision_score(y_pp, prediction, average=None)[1]
-            cov = metrics.recall_score(y_pp, prediction, average=None)[1]
-            tmp_prec.append(prec)
-            tmp_cov.append(cov)
+            # print(prediction)
+            # print(metrics.precision_score(y_pp,prediction,average=None))
+            if metrics.precision_score(y_pp, prediction, average=None)[0] < 1:
+                prec = metrics.precision_score(y_pp, prediction, average=None)[1]
+                cov = metrics.recall_score(y_pp, prediction, average=None)[1]
+                tmp_prec.append(prec)
+                tmp_cov.append(cov)
 
-            i = i + 1
+            i = i + l
 
         mean_prec = np.mean(tmp_prec)
         mean_cov = np.mean(tmp_cov)
@@ -163,8 +210,9 @@ def prec_cov_curve(classifier, x_cross, y_cross, cross_length):
 
 def test_ovetraining(model, x_train, y_train, x_cross, y_cross):
     hidden_layers = ((10,), (50,), (100,), (200,), (300,), (500,), (800,), (1000,))
-    # hidden_layers = ((1,), (700,))
+    # hidden_layers = ((1,), (2,))
     iterations = (20, 40, 60, 80, 100, 120, 140, 160, 300, 500)
+    # iterations = (1, 2)
 
     for layers in hidden_layers:
         print(layers)
@@ -172,9 +220,9 @@ def test_ovetraining(model, x_train, y_train, x_cross, y_cross):
         train_scores = []
         test_scores = []
 
-        for iter in iterations:
-            print(iter)
-            classifier = MLPClassifier(hidden_layer_sizes=layers, max_iter=iter, tol=-100)
+        for iteration in iterations:
+            print(iteration)
+            classifier = MLPClassifier(hidden_layer_sizes=layers, max_iter=iteration, tol=-100)
             classifier.fit(x_train, y_train)
 
             train_score = classifier.score(x_train, y_train)
@@ -190,7 +238,7 @@ def test_ovetraining(model, x_train, y_train, x_cross, y_cross):
 
         # plot figure
 
-        fig = plt.figure()
+        fig = plt.figure(figsize=(4, 4))
 
         plt.title("Validation Curve for " + model + " " + str(layers))
         plt.xlabel("Iterations")
@@ -203,6 +251,5 @@ def test_ovetraining(model, x_train, y_train, x_cross, y_cross):
                  color="navy", lw=lw)
         plt.legend(loc="best")
 
-        fig.savefig(
-            "D:/Dropbox/masterthesis/thesis/plots/machine_learning/hidden_units/" + model + "_" + str(layers) + ".png")
-        plt.close("all")
+        fig.savefig("data/plots/" + model + "_" + str(layers) + ".png")
+        # plt.close("all")
