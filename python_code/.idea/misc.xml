@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="IpnbSettings">
-    <option name="workingDirectory" value="$PROJECT_DIR$" />
-    <option name="URL" value="http://localhost:8889" />
-  </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.5.3 (/host/ubuntu/programs/anaconda3/envs/jupyter/bin/python)" project-jdk-type="Python SDK" />
-</project>
