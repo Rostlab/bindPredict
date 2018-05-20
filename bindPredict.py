@@ -13,7 +13,7 @@ from scripts.bindpredict_predictor import Predictor
 
 
 def main():
-    usage_string = 'python train_bindPredict.py evcouplings_res/ snap_res solv_acc/ result.out -m model -r cv_run'
+    usage_string = 'python bindPredict.py evcouplings_res/ snap_res/ solv_acc/ results/ -m model'
 
     # parse command line options
     parser = argparse.ArgumentParser(description=__doc__, usage=usage_string)
@@ -26,9 +26,8 @@ def main():
                                                 'PROFacc-Files need to have the same name in front of the suffix '
                                                 'as the EVcouplings folders '
                                                 '(e.g. Q9XLZ3/ <-> Q9XLZ3.reprof)')
-    parser.add_argument('output', help='File to write binding site predictions to')
+    parser.add_argument('output_folder', help='Folder to write binding site predictions to (one file for each protein)')
     parser.add_argument('-m', '--model', help='Input model to use for predictor training', default='mm3_cons_solv_more')
-    parser.add_argument('-r', '--run', help='Number of cross-validation run to run')
     parser.add_argument('--snap_suffix', help='Suffix of files in given SNAP-folder (default: "*.snap2")',
                         default='*.snap2')
     parser.add_argument('--profacc_suffix', help='Suffix of files in given PROFacc-folder (default: "*.reprof")',
@@ -40,7 +39,7 @@ def main():
             if helper.folder_existence_check(
                     args.solv_acc_folder):  # check if solvent accessibility folder exists and is reachable
                 predictor = Predictor()
-                predictor.train_predictor(args)
+                predictor.run_prediction(args)
 
 
 def error(*objs):
