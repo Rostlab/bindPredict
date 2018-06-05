@@ -32,23 +32,17 @@ If any files are not provided, the corresponding scores are not calculated and s
 ## External programs
 The pre-calculated results from external programs can be calculated as follows:
 
-- SNAP2 results: 
-- PROFphd results:
-- EVcouplings results (*.di_scores, *_CouplingScoresCompared_all.csv, *_frequencies.csv, *_alignment_statistics.csv):
-- EVmutation results (*.epistatic_effect): 
-EVmutation [3,4] is only available as a Github repository. A detailed description on how to run EVmutation can be found here:
-https://htmlpreview.github.io/?https://github.com/debbiemarkslab/EVmutation/blob/master/EVmutation.html
+- SNAP2 results: SNAP2 can be run using [predictprotein.org](https://www.predictprotein.org/) [1]. After the job has finished, the results can be downloaded under "Effect of Point Mutations" using the export button.
+- PROFphd results: PROFphd can also be run using [predictprotein.org](https://www.predictprotein.org/). After the job has finised, the view of the results have to be changed to "text" (upper right corner) and the text part under "Secondary Structure" has to be copied to a text file.
+- EVcouplings results (\*.di_scores, \*_CouplingScoresCompared_all.csv, \*_frequencies.csv, \*_alignment_statistics.csv):
+- EVmutation results (\*.epistatic_effect): 
+[EVmutation](https://marks.hms.harvard.edu/evmutation/index.html) [3] is only available as a Github repository. A detailed description on how to run EVmutation can be found [here](https://htmlpreview.github.io/?https://github.com/debbiemarkslab/EVmutation/blob/master/EVmutation.html)
 
 ## References
-[1]PredictProtein
+[1] Yachdav, G., Kloppmann, E., Laszlo, K., Hecht, M., Goldberg, T., Hamp, T., Hönigschmid, P., Schafferhans, A., Roos, M., Bernhofer, M. et al. (2014). [PredictProtein - an open resource for online prediction of protein structural and functional features](https://academic.oup.com/nar/article/42/W1/W337/2435518). Nucleic acids research **42**, pages W337–W343.
 
-[2]PredictProtein server
+[2]EVcouplings
 
-[3]EVcouplings
-
-[4]EVcouplings server
-
-[5] Hopf, T. A., Ingraham, J. B., Poelwijk, F.J., Schärfe, C.P.I., Springer, M., Sander, C., & Marks, D. S. (2017). 
+[3] Hopf, T. A., Ingraham, J. B., Poelwijk, F.J., Schärfe, C.P.I., Springer, M., Sander, C., & Marks, D. S. (2017). 
 [Mutation effects predicted from sequence co-variation](https://www.nature.com/articles/nbt.3769). Nature Biotechnology **35**, pages 128–135.
 
-[6] EVmutation webserver: https://marks.hms.harvard.edu/evmutation/index.html
