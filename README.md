@@ -34,7 +34,7 @@ The pre-calculated results from external programs can be calculated as follows:
 
 - **SNAP2** results: SNAP2 can be run using [predictprotein.org](https://www.predictprotein.org/) [1]. After the job has finished, the results can be downloaded under "Effect of Point Mutations" using the export button.
 - **PROFphd** results: PROFphd can also be run using [predictprotein.org](https://www.predictprotein.org/). After the job has finised, the view of the results have to be changed to "text" (upper right corner) and the text part under "Secondary Structure" has to be copied to a text file.
-- **EVcouplings** results (\*.di_scores, \*_CouplingScoresCompared_all.csv, \*_frequencies.csv, \*_alignment_statistics.csv):
+- **EVcouplings** results (\*.di_scores, \*_CouplingScoresCompared_all.csv, \*_frequencies.csv, \*_alignment_statistics.csv): [EVcouplings](http://evfold.org/evfold-web/newmarkec.do) is available as a webserver.
 - **EVmutation** results (\*.epistatic_effect): 
 [EVmutation](https://marks.hms.harvard.edu/evmutation/index.html) [3] is only available as a Github repository. A detailed description on how to run EVmutation can be found [here](https://htmlpreview.github.io/?https://github.com/debbiemarkslab/EVmutation/blob/master/EVmutation.html)
 
