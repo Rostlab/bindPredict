@@ -35,7 +35,7 @@ class FileManager(object):
 
     @property
     def binding_file(self):
-        return "data/binding_residues_evc.txt"
+        return "data/binding_residues_whole_swissprot_all.txt"
 
     @property
     def blosum_file(self):

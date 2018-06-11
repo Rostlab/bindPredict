@@ -16,8 +16,7 @@ from scripts.helper import Helper
 class Predictor(object):
     def __init__(self):
         self.query_proteins = dict()
-        self.helper = Helper()
-        self.f = FileManager()
+        self.fm = FileManager()
 
     def run_prediction(self, args):
         # 1) Read files
@@ -28,17 +27,28 @@ class Predictor(object):
         # 2) Load saved model
         print('2) Load saved model...')
         cols_to_remove, ranges, words = SelectModel.define_model(args.model)
-        classifier = joblib.load("model/" + args.model + ".pkl")
+        classifier = joblib.load("trained_model/" + args.model + ".pkl")
         # 3) Prepare predictions
         print('3) Calculate scores for query...')
         self.calculate_scores(self.query_proteins)
         print('4) Run predictions...')
         for p in self.query_proteins:
             protein_scores = self.prepare_scores_prediction(p, cols_to_remove)
+            protein_scores = np.array(protein_scores)
             # 4) Run predictions
-            predictions = classifier.predict_proba(protein_scores)
+            predictions = []
+            for index in range(0, len(protein_scores)):
+                el = protein_scores[index]
+                to_test = el[:len(el) - 1]
+                pos = el[len(el) - 1]
+                to_test = np.reshape(to_test, (1, -1))
+                to_test = to_test.astype(float)
+                proba = classifier.predict_proba(to_test)
+                prediction = proba[0][1]
+                row = [pos, prediction]
+                predictions = predictions + [row]
             # 5) Write output
-            self.write_output_predictions(args.output_folder, p, predictions)
+            self.write_output_predictions(args.output_folder, predictions, p)
 
     def train_predictor(self, args):
         run = int(args.run)
@@ -50,10 +60,10 @@ class Predictor(object):
         self.get_binding_site_information()
         # 2) Get all needed scores per protein and per residue
         print('Calculate scores...')
-        ids_folder = self.f.ids_folder
-        ids_file_prefix = self.f.ids_file
-        split1_ids, split2_ids, split3_ids, split4_ids, split5_ids = self.helper.read_id_lists(ids_folder,
-                                                                                               ids_file_prefix)
+        ids_folder = self.fm.ids_folder
+        ids_file_prefix = self.fm.ids_file
+        split1_ids, split2_ids, split3_ids, split4_ids, split5_ids = Helper.read_id_lists(ids_folder,
+                                                                                          ids_file_prefix)
         # print(len(split1_ids))
         self.calculate_scores(split1_ids)
         self.calculate_scores(split2_ids)
@@ -115,7 +125,7 @@ class Predictor(object):
         # 6) Load more data if specified
         if words[1] == "yes":
             print('Load more data...')
-            ids_more = self.helper.read_more_data(ids_folder, run)
+            ids_more = Helper.read_more_data(ids_folder, run)
             ids_more = ids_more[0:578]  # ensure that amount of more data is the same size for all runs
             self.calculate_scores(ids_more)
             x_more, y_more, length_more = self.prepare_splits(ids_more, cols_to_remove)
@@ -159,7 +169,6 @@ class Predictor(object):
             to_test = np.reshape(to_test, (1, -1))
             proba = classifier.predict_proba(to_test)
             prediction = proba[0][1]
-            classify = ""
             if prediction < 0.6:
                 if label == 0:
                     classify = "TN"
@@ -180,17 +189,20 @@ class Predictor(object):
 
     def save_trained_model(self, args):
         # 1) Read files
+        print('Read files...')
         self.get_snap_files(args.snap_folder, args.snap_suffix)
         self.get_evc_files(args.evc_folder)
-        self.get_solv_files(args.solv_folder, args.profacc_suffix)
+        self.get_solv_files(args.solv_acc_folder, args.profacc_suffix)
         self.get_binding_site_information()
         # 2) Determine model to train and save
+        print('Determine model...')
         cols_to_remove, ranges, words = SelectModel.define_model(args.model)
         # 3) Train model using all splits (+ more data?)
-        ids_folder = self.f.ids_folder
-        ids_file_prefix = self.f.ids_file
-        split1_ids, split2_ids, split3_ids, split4_ids, split5_ids = self.helper.read_id_lists(ids_folder,
-                                                                                               ids_file_prefix)
+        print('Prepare data and calculate scores...')
+        ids_folder = self.fm.ids_folder
+        ids_file_prefix = self.fm.ids_file
+        split1_ids, split2_ids, split3_ids, split4_ids, split5_ids = Helper.read_id_lists(ids_folder,
+                                                                                          ids_file_prefix)
         self.calculate_scores(split1_ids)
         self.calculate_scores(split2_ids)
         self.calculate_scores(split3_ids)
@@ -206,39 +218,44 @@ class Predictor(object):
         y_data = y_split1 + y_split2 + y_split3 + y_split4 + y_split5
         # 4) Load more data if specified
         if words[1] == "yes":
-            ids_more1 = self.helper.read_more_data(ids_folder, 1)
+            print('Load more data...')
+            ids_more1 = Helper.read_more_data(ids_folder, 1)
             ids_more1 = ids_more1[0:578]  # ensure that amount of more data is the same size for all runs
             self.calculate_scores(ids_more1)
             x_more1, y_more1, length_more1 = self.prepare_splits(ids_more1, cols_to_remove)
-            ids_more2 = self.helper.read_more_data(ids_folder, 1)
+            ids_more2 = Helper.read_more_data(ids_folder, 2)
             ids_more2 = ids_more2[0:578]  # ensure that amount of more data is the same size for all runs
             self.calculate_scores(ids_more2)
             x_more2, y_more2, length_more2 = self.prepare_splits(ids_more2, cols_to_remove)
-            ids_more3 = self.helper.read_more_data(ids_folder, 1)
+            ids_more3 = Helper.read_more_data(ids_folder, 3)
             ids_more3 = ids_more3[0:578]  # ensure that amount of more data is the same size for all runs
             self.calculate_scores(ids_more3)
             x_more3, y_more3, length_more3 = self.prepare_splits(ids_more3, cols_to_remove)
-            ids_more4 = self.helper.read_more_data(ids_folder, 1)
+            ids_more4 = Helper.read_more_data(ids_folder, 4)
             ids_more4 = ids_more4[0:578]  # ensure that amount of more data is the same size for all runs
             self.calculate_scores(ids_more4)
             x_more4, y_more4, length_more4 = self.prepare_splits(ids_more4, cols_to_remove)
-            ids_more5 = self.helper.read_more_data(ids_folder, 1)
+            ids_more5 = Helper.read_more_data(ids_folder, 5)
             ids_more5 = ids_more5[0:578]  # ensure that amount of more data is the same size for all runs
             self.calculate_scores(ids_more5)
             x_more5, y_more5, length_more5 = self.prepare_splits(ids_more5, cols_to_remove)
             x_data = x_data + x_more1 + x_more2 + x_more3 + x_more4 + x_more5
             y_data = y_data + y_more1 + y_more2 + y_more3 + y_more4 + y_more5
         # 5) Train model
+        print('Train model...')
         for el in x_data:
             del el[len(el) - 1]
 
         sm = SMOTE(random_state=42)
-        x_data, y_data = sm.fit_sample(x_data, y_data)
-        classifier = MLPClassifier(alpha=0.0001, random_state=1, hidden_layer_sizes=[(100,)], solver='sgd',
+        x_smote, y_smote = sm.fit_sample(x_data, y_data)
+        x_smote = np.array(x_smote)
+        y_smote = np.array(y_smote)
+        classifier = MLPClassifier(alpha=0.0001, random_state=1, hidden_layer_sizes=(100,), solver='sgd',
                                    learning_rate_init=0.00002, momentum=0.018, max_iter=500, early_stopping=True)
-        classifier.fit(x_data, y_data)
-        # 6) Save trained model 
-        model_path = "model/" + args.model + ".pkl"
+        classifier.fit(x_smote, y_smote)
+        # 6) Save trained model
+        print('Save trained model...')
+        model_path = "/mnt/project/evcfunc/Predictor/trained_model/" + args.model + ".pkl"
         joblib.dump(classifier, model_path)
 
     def get_snap_files(self, folder, suffix):
@@ -255,8 +272,9 @@ class Predictor(object):
             name = name[:suffix_start]  # reduce the file name to the prefix only
             self.query_proteins[name] = Protein()
             self.query_proteins[name].snap_file = f
-            # print(self.f.blosum_file())
-            self.query_proteins[name].blosum_file = self.f.blosum_file()
+            # print(self.fm.blosum_file)
+            # print(name)
+            self.query_proteins[name].blosum_file = self.fm.blosum_file
 
     def get_evc_files(self, folder):
         """ For each id, determine the different evc files.
@@ -266,11 +284,11 @@ class Predictor(object):
 
         for p in self.query_proteins:
             evc_folder = os.path.join(folder, p)
-            evc_file = os.path.join(evc_folder, (p + self.f.ec_suffix))
-            dist_file = os.path.join(evc_folder, (p + self.f.dist_suffix))
-            evmut_file = os.path.join(evc_folder, (p + self.f.evmut_suffix))
-            cons_file = os.path.join(evc_folder, (p + self.f.cons_suffix))
-            align_file = os.path.join(evc_folder, (p + self.f.align_suffix))
+            evc_file = os.path.join(evc_folder, (p + self.fm.ec_suffix))
+            dist_file = os.path.join(evc_folder, (p + self.fm.dist_suffix))
+            evmut_file = os.path.join(evc_folder, (p + self.fm.evmut_suffix))
+            cons_file = os.path.join(evc_folder, (p + self.fm.cons_suffix))
+            align_file = os.path.join(evc_folder, (p + self.fm.align_suffix))
 
             self.query_proteins[p].evc_file = evc_file
             self.query_proteins[p].dist_file = dist_file
@@ -308,7 +326,7 @@ class Predictor(object):
         :return
         """
 
-        bind_res_file = self.f.binding_file
+        bind_res_file = self.fm.binding_file
         with open(bind_res_file) as f:
             for row in f:
                 splitted = row.strip().split("\t")
@@ -364,8 +382,10 @@ class Predictor(object):
         data = []
         scores = self.query_proteins[p].scores
         for res in scores.keys():
+            resi = str(res)
             scores_res = scores[res]
-            row = [i for j, i in enumerate(scores_res) if j not in cols_to_remove]
+            row = [float(i) for j, i in enumerate(scores_res) if j not in cols_to_remove]
+            row = row + [resi]
             data.append(row)
 
         return data

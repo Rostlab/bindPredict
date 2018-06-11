@@ -13,6 +13,7 @@ Authors:
   Agnes Toth-Petroczy (original mixture model code)
 """
 import matplotlib
+
 matplotlib.use('Agg')
 
 from math import ceil
@@ -139,6 +140,7 @@ class ScoreMixtureModel:
     Assign to each EC score the probability of being in the
     lognormal tail of a normal-lognormal mixture model.
     """
+
     def __init__(self, x, max_fun=10000, max_iter=1000):
         """
         Mixture model of evolutionary coupling scores to
@@ -193,7 +195,7 @@ class ScoreMixtureModel:
         sigma = np.std(x)
         q = 1
         logsigma = 0.4
-        logmu = np.percentile(x, 75) - logsigma**2 / 2
+        logmu = np.percentile(x, 75) - logsigma ** 2 / 2
         param = np.array([mu, sigma, q, logmu, logsigma])
 
         # Target function for minimization
@@ -310,8 +312,8 @@ class ScoreMixtureModel:
         posterior = p_lognormal / (p_lognormal + p_gaussian)
 
         if plot:
-            #fig =  plt.figure(figsize=(12, 8))
-            fig = plt.figure(figsize=(4,4))
+            # fig =  plt.figure(figsize=(12, 8))
+            fig = plt.figure(figsize=(4, 4))
             c = "#fdc832"
             n_ECs, edges = np.histogram(x, 1000, density=True)
             mid = []
@@ -336,15 +338,14 @@ class ScoreMixtureModel:
 
             plt.xlabel("DI scores")
             plt.ylabel("PDF")
-	    
-            file_name = "DI_scores/distributions/"+str(file)+"_score_dis.png"
-            fig.savefig(file_name)
 
+            file_name = "DI_scores/distributions/" + str(file) + "_score_dis.png"
+            fig.savefig(file_name)
 
         return posterior
 
 
-def add_mixture_probability(ecs, score="cn", plot=False,file="plot"):
+def add_mixture_probability(ecs, score="cn", plot=False, file="plot"):
     """
     Add lognormal mixture model probability to EC table.
 

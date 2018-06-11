@@ -2,7 +2,9 @@
 from secondary structure and solvent accessibility predictions like ProfPHD and Reprof.
 """
 
+import sys
 from Bio.Seq import Seq
+
 
 class ProfParser(object):
     """ Parse and save information from ProfPDH or Reprof output.
@@ -28,6 +30,7 @@ class ProfParser(object):
     o_rel_solv_10 = []
     p_rel_solv_10 = []
     p_rel_solv = []
+    p_10 = []
     ri_solv_acc = []
     o_be = []
     p_be = []
@@ -54,7 +57,7 @@ class ProfParser(object):
     o_t_m = []
     o_t_n = []
 
-    def __init__(self, file_in, method):
+    def __init__(self, file_in):
         self.seq = Seq("")
 
         self.o_sec_struc = []
@@ -72,6 +75,7 @@ class ProfParser(object):
         self.o_rel_solv_10 = []
         self.p_rel_solv_10 = []
         self.p_rel_solv = []
+        self.p_10 = []
         self.ri_solv_acc = []
         self.o_be = []
         self.p_be = []
@@ -97,9 +101,9 @@ class ProfParser(object):
         self.o_t_m = []
         self.o_t_n = []
 
-        self._parse_file(file_in, method)
+        self._parse_file(file_in)
 
-    def _parse_file(self, file_in, method):
+    def _parse_file(self, file_in):
         rows = []
 
         with open(file_in) as f:
@@ -110,17 +114,12 @@ class ProfParser(object):
 
         tmp = rows.pop(0)
 
-        if method == 'reprof':
-            self._parse_reprof(rows)
-        elif method == 'profphd':
-            col_map = {}
-            for i in range(0, len(tmp)):
-                col = tmp[i]
-                col_map[col] = i
+        col_map = {}
+        for i in range(0, len(tmp)):
+            col = tmp[i]
+            col_map[col] = i
 
-            self._parse_profphd(rows, col_map)
-        else:
-            raise AssertionError('No valid method specified')
+        self._parse_profphd(rows, col_map)
 
     def _parse_profphd(self, data, col_map):
         seq_str = ''
@@ -171,6 +170,9 @@ class ProfParser(object):
             p_rel_solv_10_i = -1
             if 'PREL' in col_map:
                 p_rel_solv_10_i = col_map['PREL']
+            p_10_i = -1
+            if 'P10' in col_map:
+                p_10_i = col_map['P10']
             ri_solv_i = -1
             if 'RI_A' in col_map:
                 ri_solv_i = col_map['RI_A']
@@ -269,6 +271,8 @@ class ProfParser(object):
                 self.o_rel_solv_10.append(int(el[o_rel_solv_10_i]))
             if p_rel_solv_10_i > -1:
                 self.p_rel_solv_10.append(int(el[p_rel_solv_10_i]))
+            if p_10_i > -1:
+                self.p_10.append(int(el[p_10_i]))
             if ri_solv_i > -1:
                 self.ri_solv_acc.append(int(el[ri_solv_i]))
             if o_be_i > -1:
