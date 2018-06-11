@@ -36,7 +36,7 @@ The pre-calculated results from external programs can be calculated as follows:
 - **PROFphd** results: PROFphd can also be run using [predictprotein.org](https://www.predictprotein.org/). After the job has finised, the view of the results have to be changed to "text" (upper right corner) and the text part under "Secondary Structure" has to be copied to a text file.
 - **EVcouplings** results (\*.di_scores, \*_CouplingScoresCompared_all.csv, \*_frequencies.csv, \*_alignment_statistics.csv): [EVcouplings](http://evfold.org/evfold-web/newmarkec.do) [3,4] is available as a webserver. You can run EVcouplings by entering a UniProt identifier or the sequence in FASTA format. To obtain the correct results, please use "DI" as coupling scoring.
 - **EVmutation** results (\*.epistatic_effect): 
-[EVmutation](https://marks.hms.harvard.edu/evmutation/index.html) [4] is only available as a Github repository. A detailed description on how to run EVmutation can be found [here](https://htmlpreview.github.io/?https://github.com/debbiemarkslab/EVmutation/blob/master/EVmutation.html)
+[EVmutation](https://marks.hms.harvard.edu/evmutation/index.html) [5] is only available as a Github repository. A detailed description on how to run EVmutation can be found [here](https://htmlpreview.github.io/?https://github.com/debbiemarkslab/EVmutation/blob/master/EVmutation.html)
 
 ## References
 [1] Yachdav, G., Kloppmann, E., Laszlo, K., Hecht, M., Goldberg, T., Hamp, T., Hönigschmid, P., Schafferhans, A., Roos, M., Bernhofer, M. et al. (2014). [PredictProtein - an open resource for online prediction of protein structural and functional features](https://academic.oup.com/nar/article/42/W1/W337/2435518). Nucleic acids research **42**, pages W337–W343.
@@ -45,6 +45,8 @@ The pre-calculated results from external programs can be calculated as follows:
 
 [3] Marks, D. S., Colwell, L. J., Sheridan, R., Hopf, T. A., Pagnani, A., Zecchina, R., Sander, C. (2011). [Protein 3D Structure Computed from Evolutionary Sequence Variation](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0028766). PLoS ONE **6**(12): e28766.
 
-[4] Hopf, T. A., Ingraham, J. B., Poelwijk, F.J., Schärfe, C.P.I., Springer, M., Sander, C., & Marks, D. S. (2017). 
+[4] Hopf, T. A., Schärfe, C. P. I., Rodrigues, J. P. G. L. M., Green, A. G., Kohlbacher, O., Sander, C., Bonvin, A. M. J. J., Debora S Marks, D.S. (2014) [Sequence co-evolution gives 3D contacts and structures of protein complexes](https://elifesciences.org/articles/03430). eLife; 3:e03430
+
+[5] Hopf, T. A., Ingraham, J. B., Poelwijk, F.J., Schärfe, C.P.I., Springer, M., Sander, C., & Marks, D. S. (2017). 
 [Mutation effects predicted from sequence co-variation](https://www.nature.com/articles/nbt.3769). Nature Biotechnology **35**, pages 128–135.
 
