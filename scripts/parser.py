@@ -323,27 +323,6 @@ class ProfParser(object):
 
         self.seq = Seq(seq_str)
 
-    def _parse_reprof(self, data):
-        seq_str = ''
-
-        for i in range(0, len(data)):
-            el = data[i]
-            aa = el[1]
-            seq_str = seq_str + aa
-            self.p_sec_struc.append(el[2])
-            self.ri_sec_struc.append(int(el[3]))
-            self.p_h.append(int(el[4]))
-            self.p_e.append(int(el[5]))
-            self.p_l.append(int(el[6]))
-            self.p_solv_acc.append(int(el[7]))
-            self.p_rel_solv.append(int(el[8]))
-            self.p_rel_solv_10.append(int(el[9]))
-            self.ri_solv_acc.append(int(el[10]))
-            self.p_be.append(el[11])
-            self.p_bie.append(el[12])
-
-        self.seq = Seq(seq_str)
-
 
 def error(*objs):
     print("ERROR: ", *objs, file=sys.stderr)

@@ -30,7 +30,7 @@ class Predictor(object):
         for p in self.query_proteins:
             protein_scores = self.prepare_scores_prediction(p, cols_to_remove)
             protein_scores = np.array(protein_scores)
-            # 4) Run predictions
+            # 4) Run predictions per protein
             predictions = []
             for index in range(0, len(protein_scores)):
                 el = protein_scores[index]
@@ -93,7 +93,7 @@ class Predictor(object):
 
     def get_solv_files(self, folder, suffix):
         """ For each id, safe the solv file.
-        :param folder: Folder where PROFacc predictions are stored
+        :param folder: Folder where PROFacc/Reprof/PROFphd predictions are stored
         :param suffix: suffix of the files (default: reprof)
         :return:
         """
@@ -129,7 +129,7 @@ class Predictor(object):
     @staticmethod
     def write_output_predictions(folder, predictions, p):
         """ Write predictions results into output file.
-        :param folder: Folder to write the predictions results to
+        :param folder: Folder to write the prediction results to
         :param p: Protein id to use as filename
         :param predictions: Per residue predictions
         :return:
@@ -143,6 +143,7 @@ class Predictor(object):
                 if pred[1] >= 0.6:
                     label = "b"
                 out.write(str(pred[0]) + "\t" + str(pred[1]) + "\t" + label + "\n")
+
 
 def error(*objs):
     print("ERROR: ", *objs, file=sys.stderr)

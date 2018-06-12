@@ -85,7 +85,7 @@ class Protein(object):
                         residue_map[pos]['Cons'] = conservation
                     line_num += 1
 
-                    # get per residue solvent accessibility
+        # get per residue solvent accessibility
         solv_acc = dict()
         if os.path.isfile(self.solv_file):
             pp = ProfParser(self.solv_file)
@@ -106,13 +106,9 @@ class Protein(object):
             # calculate cumulative coupling scores
             distances = self.get_distances()
             ec_scores = self.get_ec_scores()
-            # print(ec_scores)
             self.calc_thresh_avg(ec_scores)
-            # print(self.threshold)
-            # print(self.average)
             # don't filter
             filtered_scores = self.filter_scores(ec_scores, distances, solv_acc, 'none', 0)
-            # print(filtered_scores)
             cumulative_scores = self.calc_cum_scores(filtered_scores)
             # filter by distance
             filtered_dist_scores = self.filter_scores(ec_scores, distances, solv_acc, 'dist', self.cs_dist_thresh)
@@ -158,7 +154,7 @@ class Protein(object):
                 r2_map = residue_map[str(r2)]
                 r3_map = residue_map[str(r3)]
                 r4_map = residue_map[str(r4)]
-                # print(str(r) + "\t" + str(r_map))
+
                 scores = [r_map['Cum'], r2_map['Cum'], r3_map['Cum'], r1_map['Cum'], r4_map['Cum'],
                           r_map['Cum_Solv'], r2_map['Cum_Solv'], r3_map['Cum_Solv'], r1_map['Cum_Solv'],
                           r4_map['Cum_Solv'],
@@ -176,6 +172,10 @@ class Protein(object):
                 self.scores[r] = scores
 
     def get_distances(self):
+        """
+        read pairwise distances from file
+        :return:
+        """
         line_num = 1
         dist_dict = dict()
         with open(self.dist_file) as f:
@@ -194,6 +194,10 @@ class Protein(object):
         return dist_dict
 
     def get_ec_scores(self):
+        """
+        read pairwise EC scores from file
+        :return:
+        """
         ec_dict = dict()
         with open(self.evc_file) as f:
             for line in f:
@@ -204,6 +208,12 @@ class Protein(object):
         return ec_dict
 
     def calc_thresh_avg(self, ec_scores):
+        """
+        Determine the cutoff and average to normalize to determine the list of high-ranking
+        coupling pairs from a list of DI scores
+        :param ec_scores: List of coupling scores
+        :return:
+        """
         num = self.length_cov * self.factor
         high_scores = list()
         counter = 0
@@ -223,9 +233,6 @@ class Protein(object):
                 high_scores.sort()
             else:
                 counter += 1
-        # print(counter)
-        # print(high_scores)
-        # print(len(high_scores))
         thresh = high_scores[0]
         avg = float(numpy.mean(high_scores))
         average = round(avg, 2)
@@ -233,6 +240,15 @@ class Protein(object):
         self.average = average
 
     def filter_scores(self, ec_scores, distances, solv_acc, identifier, dist_thresh):
+        """
+        Filter coupling scores
+        :param ec_scores: List of coupling scores
+        :param distances: Pairwise distances
+        :param solv_acc: Per-residue solvent accessibility
+        :param identifier: To identify which filter should be applied (none/dist/solv)
+        :param dist_thresh: Threshold to use as distance cutoff
+        :return: filtered scores
+        """
         filtered_scores = dict()
 
         for key in ec_scores.keys():
@@ -259,12 +275,14 @@ class Protein(object):
                         pair_dist = distances[key]
                     if pair_dist <= dist_thresh:
                         filtered_scores[key] = score
+                else:
+                    print("Invalid filter applied!")
         return filtered_scores
 
     def calc_cum_scores(self, scores):
         """ Calc cumulative coupling scores from a given set of EC scores
         :param scores: list of ec scores
-        :return cumulative coupling scores
+        :return: cumulative coupling scores
         """
         cum_scores = dict()
         for i in range(1, self.length + 1):
@@ -290,7 +308,7 @@ class Protein(object):
     def calc_clustering_coefficients(self, scores):
         """ Calc clustering coefficients from a given set of EC scores
         :param scores: list of ec scores
-        :return clustering coefficients
+        :return: clustering coefficients
         """
         coefficients = dict()
         for i in range(1, self.length + 1):
@@ -426,6 +444,7 @@ class Protein(object):
         return blosum_diff
 
     def read_blosum_matrix(self):
+        """Read the specificed blosum matrix"""
         line_num = 1
         pos_mapping = dict()
         with open(self.blosum_file) as f:
@@ -440,7 +459,6 @@ class Protein(object):
                     for j in range(1, len(splitted)):
                         pos2 = pos_mapping[j]
                         self.blosum_mat[pos1][pos2] = int(splitted[j])
-                        # print(pos1 + "\t" + pos2 + "\t" + splitted[j])
                 line_num += 1
 
     def get_blosum_score(self, aa1, aa2):
