@@ -18,6 +18,7 @@ bindPredictDL21 is written in Python3. In order to execute bindPredictDL21, Pyth
 - numpy
 - scikit-learn
 - torch
+- pandas
 
 To be able to run homology-based inference, MMseqs2 has to be locally installed. Otherwise, it is also possible to only run the Machine Learning part of bindPredictDL21.
 
