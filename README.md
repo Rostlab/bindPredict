@@ -2,11 +2,9 @@
 
 bindPredictDL21 is a method to predict whether a residue in a protein is binding to metal ions, nucleic acids (DNA or RNA), or small molecules. Towards this end, bindPredictDL21 combines homology-based inference and Machine Learning. Homology-based inference is executed using MMseqs2 [1]. For the Machine Learning method, bindPredictDL21 uses ProtT5 embeddings [2] as input to a 2-layer CNN. Since bindPredictDL21 is based on single sequences, it can easily be applied to any protein sequence.
 
-## How to use bindPredictDL21
-
 ## Data
 
-The data set used for training and testing was extracted from BioLip [3]. The UniProt identifiers for the 5 splits used during cross-validation and the test set as well as the corresponding FASTA sequences and used binding annotations are made available in the `data` folder.
+The data set used for training and testing was extracted from BioLip [3]. The UniProt identifiers for the 5 splits used during cross-validation, the test set, and the independent set of proteins added to BioLip after November 2019 as well as the corresponding FASTA sequences and used binding annotations are made available in the `data` folder.
 
 The trained models are available in the `trained_models` folder.
 
