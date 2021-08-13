@@ -4,7 +4,7 @@ bindPredictDL21 is a method to predict whether a residue in a protein is binding
 
 ## Data
 
-The data set used for training and testing was extracted from BioLip [2]. The UniProt identifiers for the 5 splits used during cross-validation and the test set as well as the used binding annotations are made available in the `data` folder.
+The data set used for training and testing was extracted from BioLip [2]. The UniProt identifiers for the 5 splits used during cross-validation and the test set as well as the corresponding FASTA sequences and used binding annotations are made available in the `data` folder.
 
 ProtT5 embeddings can be generated using [the bio_embeddings pipeline](https://github.com/sacdallago/bio_embeddings) [3].
 
