@@ -41,9 +41,9 @@ def main():
         proteins = BindEmbed21DL.cross_train_pipeline(params, model_prefix, prediction_folder, ri)
 
         # assess performance
-        # labels = ProteinInformation.get_labels(proteins.keys(), sequences)
-        # model_performances = PerformanceAssessment.combine_protein_performance(proteins, cutoff, labels)
-        # PerformanceAssessment.print_performance_results(model_performances)
+        labels = ProteinInformation.get_labels(proteins.keys(), sequences)
+        model_performances = PerformanceAssessment.combine_protein_performance(proteins, cutoff, labels)
+        PerformanceAssessment.print_performance_results(model_performances)
 
     elif keyword == 'testing':
         model_prefix = '{}/trained_model'.format(path)
@@ -55,9 +55,9 @@ def main():
         proteins = BindEmbed21DL.prediction_pipeline(model_prefix, cutoff, prediction_folder, ids_in, fasta_file, ri)
 
         # assess performance
-        # labels = ProteinInformation.get_labels(proteins.keys(), sequences)
-        # model_performances = PerformanceAssessment.combine_protein_performance(proteins, cutoff, labels)
-        # PerformanceAssessment.print_performance_results(model_performances)
+        labels = ProteinInformation.get_labels(proteins.keys(), sequences)
+        model_performances = PerformanceAssessment.combine_protein_performance(proteins, cutoff, labels)
+        PerformanceAssessment.print_performance_results(model_performances)
 
 
 main()

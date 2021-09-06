@@ -6,14 +6,14 @@ import torch
 
 from architectures import CNN2Layers
 from data_preparation import MyDataset
-from assess_performance import PerformanceAssessment as PerformAssess, ModelPerformance
+from assess_performance import ModelPerformance, PerformanceEpochs
 from config import FileManager, GeneralInformation
 from pytorchtools import EarlyStopping
 
 
 class MLTrainer(object):
 
-    def __init__(self, pos_weights, batch_size=203):
+    def __init__(self, pos_weights, batch_size=406):
         self.batch_size = batch_size
         if torch.cuda.is_available():
             self.device = 'cuda:0'
@@ -187,8 +187,8 @@ class MLTrainer(object):
         checkpoint_file = 'checkpoint_early_stopping.pt'
         early_stopping = EarlyStopping(patience=10, delta=0.01, checkpoint_file=checkpoint_file)
 
-        train_performance = PerformAssess()
-        validation_performance = PerformAssess()
+        train_performance = PerformanceEpochs()
+        validation_performance = PerformanceEpochs()
 
         num_epochs = 0
 
@@ -228,14 +228,13 @@ class MLTrainer(object):
                     pred_i, target_i = GeneralInformation.remove_padded_positions(pred[idx], target[idx], i)
 
                     pred_i = sigm(pred_i)
-                    tp_i, fp_i, tn_i, fn_i = PerformAssess.evaluate_per_residue_torch(pred_i.detach().cpu(),
-                                                                                      target_i.detach().cpu(), 3)
-                    train_tp += tp_i
-                    train_fp += fp_i
-                    train_tn += tn_i
-                    train_fn += fn_i
+                    tp, fp, tn, fn, acc, prec, rec, f1, mcc = \
+                        train_performance.get_performance_batch(pred_i.detach().cpu(), target_i.detach().cpu())
+                    train_tp += tp
+                    train_fp += fp
+                    train_tn += tn
+                    train_fn += fn
 
-                    acc, prec, rec, f1, mcc = PerformAssess.calc_performance_measurements(tp_i, fp_i, tn_i, fn_i)
                     train_acc += acc
                     train_prec += prec
                     train_rec += rec
@@ -267,14 +266,13 @@ class MLTrainer(object):
                         pred_i, target_i = GeneralInformation.remove_padded_positions(pred[idx], target[idx], i)
 
                         pred_i = sigm(pred_i)
-                        tp_i, fp_i, tn_i, fn_i = PerformAssess.evaluate_per_residue_torch(pred_i.detach().cpu(),
-                                                                                          target_i.detach().cpu(), 3)
-                        val_tp += tp_i
-                        val_fp += fp_i
-                        val_tn += tn_i
-                        val_fn += fn_i
 
-                        acc, prec, rec, f1, mcc = PerformAssess.calc_performance_measurements(tp_i, fp_i, tn_i, fn_i)
+                        tp, fp, tn, fn, acc, prec, rec, f1, mcc = \
+                            train_performance.get_performance_batch(pred_i.detach().cpu(), target_i.detach().cpu())
+                        val_tp += tp
+                        val_fp += fp
+                        val_tn += tn
+                        val_fn += fn
 
                         val_acc += acc
                         val_prec += prec
@@ -309,19 +307,10 @@ class MLTrainer(object):
                                                                                                        val_rec, val_f1,
                                                                                                        val_mcc))
                 print('TP: {}, FP: {}, TN: {}, FN: {}'.format(val_tp, val_fp, val_tn, val_fn))
-            train_performance.loss_epochs.append(train_loss)
-            train_performance.acc_epochs.append(train_acc)
-            train_performance.mcc_epochs.append(train_mcc)
-            train_performance.f1_epochs.append(train_f1)
-            train_performance.prec_epochs.append(train_prec)
-            train_performance.recall_epochs.append(train_rec)
 
-            validation_performance.loss_epochs.append(val_loss)
-            validation_performance.acc_epochs.append(val_acc)
-            validation_performance.mcc_epochs.append(val_mcc)
-            validation_performance.f1_epochs.append(val_f1)
-            validation_performance.prec_epochs.append(val_prec)
-            validation_performance.recall_epochs.append(val_rec)
+            # append average performance for this epoch
+            train_performance.add_performance_epoch(train_loss, train_mcc, train_prec, train_rec, train_f1, train_acc)
+            validation_performance.add_performance_epoch(val_loss, val_mcc, val_prec, val_rec, val_f1, val_acc)
 
             num_epochs += 1
 

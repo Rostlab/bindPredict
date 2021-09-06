@@ -46,12 +46,9 @@ class MLPredictor(object):
                 features = features.squeeze()
 
                 pred_i, target_i = GeneralInformation.remove_padded_positions(pred, target, features)
-
                 pred_i = pred_i.detach().cpu()
-                target_i = target_i.detach().cpu()
 
                 prot = ProteinResults(prot_id)
-                prot.set_labels(target_i)
                 prot.set_predictions(pred_i)
                 proteins[prot_id] = prot
 
