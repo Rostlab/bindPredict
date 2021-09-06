@@ -42,6 +42,7 @@ bindEmbed21 is written in Python3. In order to execute bindEmbed21, Python3 has 
 - scikit-learn
 - torch
 - pandas
+- h5py
 
 To be able to run homology-based inference, MMseqs2 has to be locally installed. Otherwise, it is also possible to only run the Machine Learning part of bindEmbed21 (bindEmbed21DL).
 
