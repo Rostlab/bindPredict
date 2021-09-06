@@ -8,9 +8,7 @@ import os
 
 class MMseqsPredictor(object):
 
-    def __init__(self, profile_db, blast_db, exclude_self_hits):
-        self.profile_db = profile_db
-        self.blast_db = blast_db
+    def __init__(self, exclude_self_hits):
         self.exclude_self_hits = exclude_self_hits
 
     def get_mmseqs_hits(self, ids, evalue, criterion, set_name, hval=0):
@@ -82,7 +80,7 @@ class MMseqsPredictor(object):
             else:
                 best_hits[i][max_hit] = max_hval
 
-        return best_hits
+        return best_hits, mmseqs_out
 
     @staticmethod
     def calc_mmseqs_results(evalue, set_name):
