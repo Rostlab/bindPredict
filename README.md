@@ -2,6 +2,18 @@
 
 bindEmbed21 is a method to predict whether a residue in a protein is binding to metal ions, nucleic acids (DNA or RNA), or small molecules. Towards this end, bindEmbed21 combines homology-based inference and Machine Learning. Homology-based inference is executed using MMseqs2 [1]. For the Machine Learning method, bindEmbed21DL uses ProtT5 embeddings [2] as input to a 2-layer CNN. Since bindEmbed21 is based on single sequences, it can easily be applied to any protein sequence.
 
+## Usage
+
+`run_bindEmbed21DL.py` shows an example how to generate binding residue predictions using the Machine Learning part of bindEmbed21 (bindEmbed21DL)
+
+`run_bindEmbed21HBI.py` shows an example how to generate bidning residue predictions using the homology-inference part of bindEmbed21 (bindEmbed21HBI)
+
+`run_bindEmbed21.py` combines ML and HBI into the final method bindEmbed21
+
+`develop_bindEmbed21DL.py` provides the code to reproduce the bindEmbed21DL development (hyperparameter optimization, training, performance assessment on the test set).
+
+All needed files and paths can be set in `config.py` (marked as TODOs).
+
 ## Data
 
 ### Development Set
@@ -10,7 +22,14 @@ The data set used for training and testing was extracted from BioLip [3]. The Un
 
 The trained models are available in the `trained_models` folder.
 
-ProtT5 embeddings can be generated using [the bio_embeddings pipeline](https://github.com/sacdallago/bio_embeddings) [4].
+ProtT5 embeddings can be generated using [the bio_embeddings pipeline](https://github.com/sacdallago/bio_embeddings) [4]. To use them with `bindEmbed21`, they need to be converted to .npy format. A script for the conversion can be found in the folder `utils`.
+
+## Sets for homology-based inference
+For the homology-based inference (bindEmbed21HBI), query proteins will be aligned against big80 to generate profiles. Those profiles are then searched against a lookup set of proteins with known binding residues. The pre-computed MMseqs2 database files and the FASTA file for the lookup database can be downloaded here:
+
+* Pre-computed big80 DB: [ftp://rostlab.org/bindEmbed21/profile_db.tar.gz](ftp://rostlab.org/bindEmbed21/profile_db.tar.gz)
+* Pre-computed lookup DB: [ftp://rostlab.org/bindEmbed21/lookup_db.tar.gz](ftp://rostlab.org/bindEmbed21/lookup_db.tar.gz)
+* FASTA for lookup DB: [ftp://rostlab.org/bindEmbed21/lookup.fasta](ftp://rostlab.org/bindEmbed21/lookup.fasta)
 
 ### Human proteome predictions
 
@@ -25,6 +44,13 @@ bindEmbed21 is written in Python3. In order to execute bindEmbed21, Python3 has 
 - pandas
 
 To be able to run homology-based inference, MMseqs2 has to be locally installed. Otherwise, it is also possible to only run the Machine Learning part of bindEmbed21 (bindEmbed21DL).
+
+## Cite
+
+In case, you are using this method and find it helpful, we would appreciate if you could cite the following preprint:
+
+Littmann M, Heinzinger M, Dallago C, Weissenow K, Rost B (2021). Protein embeddings and deep learning predict binding residues for various ligand classes. bioRxiv.
+
 
 ## References
 [1] Steinegger M, Söding J (2017). MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nat Biotechnol 35.
