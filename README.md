@@ -50,7 +50,7 @@ To be able to run homology-based inference, MMseqs2 has to be locally installed.
 
 In case, you are using this method and find it helpful, we would appreciate if you could cite the following publication:
 
-Littmann M, Heinzinger M, Dallago C, Weissenow K, Rost B. Protein embeddings and deep learning predict binding residues for various ligand classes. *Sci Rep* **11**, 1160 (2021). https://doi.org/10.1038/s41598-020-80786-0
+Littmann M, Heinzinger M, Dallago C, Weissenow K, Rost B. Protein embeddings and deep learning predict binding residues for various ligand classes. *Sci Rep* **11**, 23916 (2021). https://doi.org/10.1038/s41598-021-03431-4
 
 
 ## References
