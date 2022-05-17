@@ -22,7 +22,7 @@ The data set used for training and testing was extracted from BioLip [3]. The Un
 
 The trained models are available in the `trained_models` folder.
 
-ProtT5 embeddings can be generated using [the bio_embeddings pipeline](https://github.com/sacdallago/bio_embeddings) [4]. To use them with `bindEmbed21`, they need to be converted to .npy format. A script for the conversion can be found in the folder `utils`.
+ProtT5 embeddings can be generated using [the bio_embeddings pipeline](https://github.com/sacdallago/bio_embeddings) [4]. To use them with `bindEmbed21`, they need to be converted to use the correct keys. A script for the conversion can be found in the folder `utils`.
 
 ## Sets for homology-based inference
 For the homology-based inference (bindEmbed21HBI), query proteins will be aligned against big80 to generate profiles. Those profiles are then searched against a lookup set of proteins with known binding residues. The pre-computed MMseqs2 database files and the FASTA file for the lookup database can be downloaded here:
