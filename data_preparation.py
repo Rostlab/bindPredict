@@ -19,7 +19,9 @@ class MyDataset(torch.utils.data.Dataset):
 
         self.labels = labels
         self.max_length = max_length
-        self.n_features = self._get_input_dimensions()
+        self.n_features = self.get_input_dimensions()
+
+        print('Number of input features: {}'.format(self.n_features))
 
     def __len__(self):
         return len(self.samples)
@@ -46,11 +48,11 @@ class MyDataset(torch.utils.data.Dataset):
         else:
             return features, target, loss_mask
 
-    def _get_input_dimensions(self):
+    def get_input_dimensions(self):
         first_key = list(self.embeddings.keys())[0]
         first_embedding = self.embeddings[first_key]
 
-        return len(first_embedding)
+        return np.shape(first_embedding)[1]
 
 
 class ProteinInformation(object):
