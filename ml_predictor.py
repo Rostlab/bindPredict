@@ -25,7 +25,7 @@ class MLPredictor(object):
         :return:
         """
 
-        validation_set = MyDataset(ids, sequences, embeddings, labels, max_length, protein_prediction=True)
+        validation_set = MyDataset(ids, embeddings, sequences, labels, max_length, protein_prediction=True)
         validation_loader = torch.utils.data.DataLoader(validation_set, batch_size=1, shuffle=True, pin_memory=True)
         sigm = torch.nn.Sigmoid()
 
