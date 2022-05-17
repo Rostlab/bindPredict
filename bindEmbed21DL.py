@@ -34,6 +34,7 @@ class BindEmbed21DL(object):
 
         # get sequences + maximum length + labels
         sequences, max_length, labels = ProteinInformation.get_data(ids)
+        embeddings = FileManager.read_embeddings(FileSetter.embeddings_input())
 
         proteins = dict()
         trainer = MLTrainer(pos_weights=params['weights'])
@@ -41,11 +42,12 @@ class BindEmbed21DL(object):
         for train_index, test_index in ps.split():
 
             split_counter = fold_array[test_index[0]]
-            train_ids, validation_ids = ids[train_index], ids[test_index]
+            train_ids = [ids[train_idx] for train_idx in train_index]
+            validation_ids = [ids[test_idx] for test_idx in test_index]
 
             print("Train model")
-            model_split = trainer.train_validate(params, train_ids, validation_ids, sequences, labels, max_length,
-                                                 verbose=False)
+            model_split = trainer.train_validate(params, train_ids, validation_ids, sequences, embeddings, labels,
+                                                 max_length, verbose=False)
 
             if model_output is not None:
                 model_path = '{}{}.pt'.format(model_output, split_counter)
@@ -53,7 +55,7 @@ class BindEmbed21DL(object):
 
             print("Calculate predictions per protein")
             ml_predictor = MLPredictor(model_split)
-            curr_proteins = ml_predictor.predict_per_protein(validation_ids, sequences, labels, max_length)
+            curr_proteins = ml_predictor.predict_per_protein(validation_ids, sequences, embeddings, labels, max_length)
 
             proteins = {**proteins, **curr_proteins}
 
@@ -86,12 +88,13 @@ class BindEmbed21DL(object):
 
         # get sequences + maximum length + labels
         sequences, max_length, labels = ProteinInformation.get_data(ids)
+        embeddings = FileManager.read_embeddings(FileSetter.embeddings_input())
 
         print("Perform hyperparameter optimization")
         trainer = MLTrainer(pos_weights=params['weights'])
         del params['weights']  # remove weights to not consider as parameter for optimization
 
-        model = trainer.cross_validate(params, ids, fold_array, sequences, labels, max_length, result_file)
+        model = trainer.cross_validate(params, ids, fold_array, sequences, embeddings, labels, max_length, result_file)
 
         return model
 
@@ -111,6 +114,7 @@ class BindEmbed21DL(object):
         print("Prepare data")
         ids = FileManager.read_ids(ids_in)
         sequences, max_length, labels = ProteinInformation.get_data_predictions(ids, fasta_file)
+        embeddings = FileManager.read_embeddings(FileSetter.embeddings_input())
 
         proteins = dict()
         for i in range(0, 5):
@@ -120,7 +124,7 @@ class BindEmbed21DL(object):
 
             print("Calculate predictions")
             ml_predictor = MLPredictor(model)
-            curr_proteins = ml_predictor.predict_per_protein(ids, sequences, labels, max_length)
+            curr_proteins = ml_predictor.predict_per_protein(ids, sequences, embeddings, labels, max_length)
 
             for k in curr_proteins.keys():
                 if k in proteins.keys():

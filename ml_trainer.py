@@ -22,13 +22,15 @@ class MLTrainer(object):
 
         self.pos_weights = torch.tensor(pos_weights).to(self.device)
 
-    def train_validate(self, params, train_ids, validation_ids, sequences, labels, max_length, verbose=True):
+    def train_validate(self, params, train_ids, validation_ids, sequences, embeddings, labels, max_length,
+                       verbose=True):
         """
         Train & validate predictor for one set of parameters and ids
         :param params:
         :param train_ids:
         :param validation_ids:
         :param sequences:
+        :param embeddings:
         :param labels:
         :param max_length:
         :param verbose:
@@ -36,7 +38,8 @@ class MLTrainer(object):
         """
 
         model, train_performance, val_performance = self._train_validate(params, train_ids, validation_ids, sequences,
-                                                                         labels, max_length, verbose=verbose)
+                                                                         embeddings, labels, max_length,
+                                                                         verbose=verbose)
 
         train_loss, train_acc, train_prec, train_recall, train_f1, train_mcc = \
             train_performance.get_performance_last_epoch()
@@ -54,13 +57,14 @@ class MLTrainer(object):
 
         return model
 
-    def cross_validate(self, params, ids, fold_array, sequences, labels, max_length, result_file):
+    def cross_validate(self, params, ids, fold_array, sequences, embeddings, labels, max_length, result_file):
         """
         Perform cross-validation to optimize hyperparameters
         :param params:
         :param ids:
         :param fold_array:
         :param sequences:
+        :param embeddings:
         :param labels:
         :param max_length:
         :param result_file:
@@ -100,7 +104,8 @@ class MLTrainer(object):
                 train_ids, validation_ids = ids[train_index], ids[test_index]
 
                 model, train_performance, val_performance = self._train_validate(curr_params, train_ids, validation_ids,
-                                                                                 sequences, labels, max_length)
+                                                                                 sequences, embeddings, labels,
+                                                                                 max_length)
 
                 train_loss, train_acc, train_prec, train_recall, train_f1, train_mcc = \
                     train_performance.get_performance_last_epoch()
@@ -147,7 +152,8 @@ class MLTrainer(object):
 
         return best_classifier
 
-    def _train_validate(self, params, train_ids, validation_ids, sequences, labels, max_length, verbose=True):
+    def _train_validate(self, params, train_ids, validation_ids, sequences, embeddings, labels, max_length,
+                        verbose=True):
         """
         Train and validate bindEmbed21DL model
         :param params:
@@ -161,8 +167,8 @@ class MLTrainer(object):
         """
 
         # define data sets
-        train_set = MyDataset(train_ids, sequences, labels, max_length)
-        validation_set = MyDataset(validation_ids, sequences, labels, max_length)
+        train_set = MyDataset(train_ids, embeddings, sequences, labels, max_length)
+        validation_set = MyDataset(validation_ids, embeddings, sequences, labels, max_length)
 
         train_loader = torch.utils.data.DataLoader(train_set, batch_size=self.batch_size, shuffle=True, pin_memory=True,
                                                    worker_init_fn=GeneralInformation.seed_worker)

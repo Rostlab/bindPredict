@@ -14,17 +14,18 @@ class MLPredictor(object):
 
         self.model = model.to(self.device)
 
-    def predict_per_protein(self, ids, sequences, labels, max_length):
+    def predict_per_protein(self, ids, sequences, embeddings, labels, max_length):
         """
         Generate predictions for each protein from a list
         :param ids:
         :param sequences:
+        :param embeddings:
         :param labels:
         :param max_length:
         :return:
         """
 
-        validation_set = MyDataset(ids, sequences, labels, max_length)
+        validation_set = MyDataset(ids, sequences, embeddings, labels, max_length, protein_prediction=True)
         validation_loader = torch.utils.data.DataLoader(validation_set, batch_size=1, shuffle=True, pin_memory=True)
         sigm = torch.nn.Sigmoid()
 

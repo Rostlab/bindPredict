@@ -11,12 +11,15 @@ class MyDataset(torch.utils.data.Dataset):
 
     """Dataset for bindEmbed21DL"""
 
-    def __init__(self, samples, seqs, labels, max_length):
+    def __init__(self, samples, embeddings, seqs, labels, max_length, protein_prediction=False):
+        self.protein_prediction = protein_prediction
         self.samples = samples
+        self.embeddings = embeddings
         self.seqs = seqs
 
         self.labels = labels
         self.max_length = max_length
+        self.n_features = self._get_input_dimensions()
 
     def __len__(self):
         return len(self.samples)
@@ -25,13 +28,13 @@ class MyDataset(torch.utils.data.Dataset):
         prot_id = self.samples[item]
         prot_length = len(self.seqs[prot_id])
 
-        embedding = np.load('{}/{}.npy'.format(FileSetter.t5_dir(), prot_id))
+        embedding = self.embeddings[prot_id]
 
         # pad all inputs to the maximum length & add another feature to encode whether the element is a position
         # in the sequence or padded
-        features = np.zeros((1025, self.max_length), dtype=np.float32)
-        features[:1024, :prot_length] = np.transpose(embedding)  # set feature maps to embedding values
-        features[1024, :prot_length] = 1  # set last element to 1 because positions are not padded
+        features = np.zeros((self.n_features + 1, self.max_length), dtype=np.float32)
+        features[:self.n_features, :prot_length] = np.transpose(embedding)  # set feature maps to embedding values
+        features[self.n_features, :prot_length] = 1  # set last element to 1 because positions are not padded
 
         target = np.zeros((3, self.max_length), dtype=np.float32)
         target[:3, :prot_length] = np.transpose(self.labels[prot_id])
@@ -42,6 +45,12 @@ class MyDataset(torch.utils.data.Dataset):
             return features, target, loss_mask, prot_id
         else:
             return features, target, loss_mask
+
+    def _get_input_dimensions(self):
+        first_key = list(self.embeddings.keys())[0]
+        first_embedding = self.embeddings[first_key]
+
+        return len(first_embedding)
 
 
 class ProteinInformation(object):

@@ -2,6 +2,7 @@ from pandas import DataFrame
 import torch
 import os
 import numpy
+import h5py
 import random
 from collections import defaultdict
 
@@ -9,8 +10,10 @@ from collections import defaultdict
 class FileSetter(object):
 
     @staticmethod
-    def t5_dir():
-        return ''  # TODO set path to embeddings, embeddings should be in .npy-format with one embedding per
+    def embeddings_input():
+        return ''
+        # TODO set path to embeddings, this should be a .h5-file generated containing per-residue embeddings for all
+        #  proteins with key: UniProt-ID, value: embeddings
 
     @staticmethod
     def predictions_folder():
@@ -103,6 +106,21 @@ class FileManager(object):
                     sequences[current_id] += line
 
         return sequences
+
+    @staticmethod
+    def read_embeddings(file_in):
+        """
+        Read embeddings from .h5-file
+        :param file_in:
+        :return: dict with key: ID, value: per-residue embeddings
+        """
+
+        embeddings = dict()
+        with h5py.File(file_in, 'r') as f:
+            for key, embedding in f.items():
+                embeddings[key] = numpy.array(embedding, dtype=numpy.float32)
+
+        return embeddings
 
     @staticmethod
     def read_binding_residues(file_in):
