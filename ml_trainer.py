@@ -328,6 +328,7 @@ class MLTrainer(object):
                 if early_stopping.early_stop:
                     break
 
-        model = torch.load(checkpoint_file)
+        if 'early_stopping' in params.keys() and params['early_stopping']:   # load best model
+            model = torch.load(checkpoint_file)
 
         return model, train_performance, validation_performance
