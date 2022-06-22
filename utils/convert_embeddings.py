@@ -13,7 +13,7 @@ def main():
 
     with h5py.File(embeddings_in, 'r') as f_in:
         with h5py.File(embeddings_out, 'w') as f_out:
-            for key,embedding in f_in.items():
+            for key, embedding in f_in.items():
                 original_id = embedding.attrs['original_id']
                 embedding = np.array(embedding)
 

@@ -99,21 +99,19 @@ class BindEmbed21DL(object):
         return model
 
     @staticmethod
-    def prediction_pipeline(model_prefix, cutoff, result_folder, ids_in, fasta_file, ri):
+    def prediction_pipeline(model_prefix, cutoff, result_folder, ids, sequences, ri):
         """
         Run predictions with bindEmbed21DL for a given list of proteins
         :param model_prefix:
         :param cutoff: Cutoff to use to define prediction as binding (default: 0.5)
         :param result_folder:
-        :param ids_in:
-        :param fasta_file:
+        :param ids:
+        :param sequences:
         :param ri: Should RI or raw probabilities be written?
         :return:
         """
 
         print("Prepare data")
-        ids = FileManager.read_ids(ids_in)
-        sequences, max_length, labels = ProteinInformation.get_data_predictions(ids, fasta_file)
         embeddings = FileManager.read_embeddings(FileSetter.embeddings_input())
 
         proteins = dict()
