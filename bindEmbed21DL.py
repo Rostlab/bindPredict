@@ -2,6 +2,7 @@ from data_preparation import ProteinInformation
 from ml_trainer import MLTrainer
 from ml_predictor import MLPredictor
 from config import FileSetter, FileManager
+from architectures import CNN2Layers
 
 import numpy as np
 from sklearn.model_selection import PredefinedSplit
@@ -99,19 +100,20 @@ class BindEmbed21DL(object):
         return model
 
     @staticmethod
-    def prediction_pipeline(model_prefix, cutoff, result_folder, ids, sequences, ri):
+    def prediction_pipeline(model_prefix, cutoff, result_folder, ids, fasta_file, ri):
         """
         Run predictions with bindEmbed21DL for a given list of proteins
         :param model_prefix:
         :param cutoff: Cutoff to use to define prediction as binding (default: 0.5)
         :param result_folder:
         :param ids:
-        :param sequences:
+        :param fasta_file:
         :param ri: Should RI or raw probabilities be written?
         :return:
         """
 
         print("Prepare data")
+        sequences, max_length, labels = ProteinInformation.get_data_predictions(ids, fasta_file)
         embeddings = FileManager.read_embeddings(FileSetter.embeddings_input())
 
         proteins = dict()

@@ -17,7 +17,7 @@ def main():
 
     ri = True  # Whether to write RI or Probabilities
 
-    BindEmbed21DL.prediction_pipeline(model_prefix, 0.5, prediction_folder, query_ids, query_sequences, ri)
+    BindEmbed21DL.prediction_pipeline(model_prefix, 0.5, prediction_folder, query_ids, query_fasta, ri)
 
 
 main()

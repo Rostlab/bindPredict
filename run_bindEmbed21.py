@@ -45,7 +45,7 @@ def main():
     model_prefix = 'trained_models/checkpoint'
     ri = True  # Whether to write RI or Probabilities
 
-    predicted_proteins = BindEmbed21DL.prediction_pipeline(model_prefix, 0.5, None, missing_proteins, query_sequences,
+    predicted_proteins = BindEmbed21DL.prediction_pipeline(model_prefix, 0.5, None, missing_proteins, query_fasta,
                                                            ri)
 
     print("Write predictions")
