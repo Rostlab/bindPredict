@@ -22,19 +22,19 @@ class FileSetter(object):
     @staticmethod
     def profile_db():
         # TODO set path to pre-computed big_80 database
-        # can be downloaded from ftp://rostlab.org/bindEmbed21/profile_db.tar.gz
+        # can be downloaded from http://data.bioembeddings.com/public/embeddings/feature_models/bindembed21/profile_db.tar.gz
         return ''
 
     @staticmethod
     def lookup_fasta():
         # TODO set path to FASTA file of lookup set
-        # can be downloaded from ftp://rostlab.org/bindEmbed21/lookup.fasta
+        # can be downloaded from http://data.bioembeddings.com/public/embeddings/feature_models/bindembed21/lookup.fasta
         return ''
 
     @staticmethod
     def lookup_db():
         # TODO set path to pre-computed lookup database
-        # can be downloaded from ftp://rostlab.org/bindEmbed21/lookup_db.tar.gz
+        # can be downloaded from http://data.bioembeddings.com/public/embeddings/feature_models/bindembed21/lookup_db.tar.gz
         return ''
 
     @staticmethod
